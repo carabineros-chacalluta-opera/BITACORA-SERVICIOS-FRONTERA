@@ -10,8 +10,8 @@
 const SISCOF_CONFIG = {
 
   // ── SUPABASE ─────────────────────────────────────────────
-  SUPABASE_URL:      '',   // ← Pegue su Project URL aquí
-  SUPABASE_ANON_KEY: '',   // ← Pegue su anon public key aquí
+  SUPABASE_URL:      'https://jsojspuccytzvlzxabvb.supabase.co',   
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impzb2pzcHVjY3l0enZsenhhYnZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMzcwOTUsImV4cCI6MjA4ODcxMzA5NX0.lsPnNuZqjNxfAsiWjhjGHc7QlQZ_GfMfRWhURKDVNPI',   // ← Pegue su anon public key aquí
 
   // ── SISTEMA ──────────────────────────────────────────────
   NOMBRE_SISTEMA:    'SISCOF',
