@@ -6,8 +6,8 @@
 const SISCOF_CONFIG = {
 
   // ── SUPABASE ─────────────────────────────────────────────
-  SUPABASE_URL:      'https://jsojspuccytzvlzxabvb.supabase.co',
-  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impzb2pzcHVjY3l0enZsenhhYnZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMzcwOTUsImV4cCI6MjA4ODcxMzA5NX0.lsPnNuZqjNxfAsiWjhjGHc7QlQZ_GfMfRWhURKDVNPI',
+  SUPABASE_URL:      'https://tmkickwwpllefpkhhgwf.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRta2lja3d3cGxsZWZwa2hoZ3dmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NjEwMzAsImV4cCI6MjA4OTQzNzAzMH0.bsfyzRu8tTx-mij_AeaTQ0RO7nYTcqebpN7aTgzqAKg',
 
   // ── SISTEMA ──────────────────────────────────────────────
   NOMBRE_SISTEMA:     'SISCOF',
