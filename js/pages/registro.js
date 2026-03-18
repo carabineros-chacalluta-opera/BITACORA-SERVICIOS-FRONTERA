@@ -220,9 +220,9 @@ function paso1Html() {
           onchange="_servicio.nombre_jefe=this.value.trim()" />
       </div>
       <div class="campo">
-        <label>Turno</label>
+        <label>Nombre del Servicio</label>
         <input id="f-turno" type="text"
-          placeholder="Ej: Mañana, Tarde, Noche"
+          placeholder="Ej: Muralla Digital, Centinela, 1er. Control Frontera, Patrullaje de Soberanía..."
           value="${_servicio.turno}"
           onchange="_servicio.turno=this.value.trim()" />
       </div>
@@ -273,7 +273,7 @@ function irPaso2() {
   const err = el('p1-error')
   if (!_servicio.nombre_jefe || !_servicio.turno ||
       !_servicio.fecha       || !_servicio.hora_inicio) {
-    err.textContent = 'Complete Jefe de Servicio, Turno, Fecha y Hora Inicio.'
+    err.textContent = 'Complete Jefe de Servicio, Nombre del Servicio, Fecha y Hora Inicio.'
     err.style.display = ''; return
   }
   err.style.display = 'none'; _paso = 2; renderPaso()
@@ -768,7 +768,7 @@ function paso4Html() {
       ${filaResumen('Cuartel',   cuartelNombre)}
       ${filaResumen('Jefe',      _servicio.nombre_jefe)}
       ${filaResumen('Fecha',     _servicio.fecha)}
-      ${filaResumen('Turno',     { manana:'Mañana', tarde:'Tarde', noche:'Noche' }[_servicio.turno] || '')}
+      ${filaResumen('Servicio',  _servicio.turno || '—')}
       ${filaResumen('Horario',   `${_servicio.hora_inicio} → ${_servicio.hora_termino}`)}
       ${filaResumen('Vehículo',  _servicio.patente_texto || '—')}
       ${filaResumen('Km',        `${_servicio.km_inicio || '—'} → ${_servicio.km_termino || '—'}`)}
