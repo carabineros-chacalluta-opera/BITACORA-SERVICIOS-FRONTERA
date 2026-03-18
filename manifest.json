@@ -1,0 +1,14 @@
+{
+  "name": "SISCOF — Control Fronterizo",
+  "short_name": "SISCOF",
+  "description": "Sistema de Control Fronterizo — Prefectura Arica Nro. 1",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#1a6b2a",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "img/escudo-carabineros.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/escudo-carabineros.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

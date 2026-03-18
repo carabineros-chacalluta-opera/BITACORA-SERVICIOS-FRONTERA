@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a6b2a" />
+  <title>SISCOF — Sistema de Control Fronterizo</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/siscof.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dexie@3/dist/dexie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div id="splash" style="
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:1rem;background:#f5f5f7;
+    font-family:'DM Sans',sans-serif;
+  ">
+    <img src="img/escudo-carabineros.png" alt="Carabineros de Chile"
+      style="width:72px;filter:drop-shadow(0 4px 12px rgba(26,107,42,.3))"
+      onerror="this.style.display='none'" />
+    <div style="font-size:1.6rem;font-weight:700;letter-spacing:-.5px;color:#1d1d1f">SISCOF</div>
+    <div style="font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#6e6e73">
+      CARGANDO SISTEMA...
+    </div>
+  </div>
+
+  <!-- Modal Alerta Crítica (cohecho) -->
+  <div id="modal-alerta" style="display:none;position:fixed;inset:0;z-index:9998;
+    background:rgba(0,0,0,.6);align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;padding:2rem;max-width:440px;width:90%;
+      border-top:5px solid #d70015;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+      <div style="font-size:2rem;text-align:center;margin-bottom:.75rem">🚨</div>
+      <div style="font-size:1.1rem;font-weight:700;color:#d70015;text-align:center;margin-bottom:.5rem">
+        ALERTA INSTITUCIONAL MÁXIMA
+      </div>
+      <div id="modal-alerta-msg" style="font-size:.85rem;color:#3a3a3c;text-align:center;
+        line-height:1.6;margin-bottom:1.25rem"></div>
+      <div style="background:#fff0f1;border:1px solid #ffccd0;border-radius:8px;
+        padding:.75rem;font-size:.78rem;color:#9a0010;margin-bottom:1.25rem">
+        <strong>Instrucción:</strong> Notificar inmediatamente a la cadena de mando conforme al
+        Informe Técnico N°01/2026. Este registro quedará en la tabla de alertas críticas del sistema.
+      </div>
+      <div style="display:flex;gap:.75rem">
+        <button onclick="cerrarModalAlerta(false)"
+          style="flex:1;padding:.6rem;border-radius:8px;border:1px solid #d8d8dc;
+          background:#f0f0f2;font-weight:600;font-size:.82rem;cursor:pointer">
+          Cancelar
+        </button>
+        <button onclick="cerrarModalAlerta(true)"
+          style="flex:1;padding:.6rem;border-radius:8px;border:none;
+          background:#d70015;color:#fff;font-weight:700;font-size:.82rem;cursor:pointer">
+          Confirmar y Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/idfi.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/pages/login.js"></script>
+  <script src="js/pages/app.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/registro.js"></script>
+  <script src="js/pages/historial.js"></script>
+  <script src="js/pages/maestras.js"></script>
+  <script src="js/pages/admin.js"></script>
+  <script src="js/pages/usuarios.js"></script>
+
+  <script>
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(() => {})
+    }
+
+    ;(async () => {
+      if (!SISCOF_CONFIG.SUPABASE_URL || !SISCOF_CONFIG.SUPABASE_ANON_KEY) {
+        document.getElementById('splash').innerHTML = `
+          <div style="text-align:center;font-family:'DM Mono',monospace;color:#d70015;
+            font-size:.9rem;max-width:480px;padding:2rem">
+            <div style="font-size:2rem;margin-bottom:1rem">⚠</div>
+            <strong>CREDENCIALES NO CONFIGURADAS</strong><br><br>
+            Edite el archivo <code style="background:#f0f0f2;padding:2px 6px;
+            border-radius:4px">js/config.js</code> y complete:<br><br>
+            <code style="background:#f0f0f2;padding:4px 10px;border-radius:4px;
+            display:block;margin:8px 0">SUPABASE_URL</code>
+            <code style="background:#f0f0f2;padding:4px 10px;border-radius:4px;
+            display:block;margin:8px 0">SUPABASE_ANON_KEY</code>
+          </div>`
+        return
+      }
+      try {
+        await initOfflineDB()
+        const sesionActiva = await iniciarSesion()
+        document.getElementById('splash').remove()
+        if (sesionActiva) renderApp()
+        else renderLogin()
+      } catch (e) {
+        document.getElementById('splash').innerHTML = `
+          <div style="text-align:center;font-family:'DM Mono',monospace;color:#d70015;
+            font-size:.85rem;max-width:480px;padding:2rem">
+            <div style="font-size:2rem;margin-bottom:1rem">⚠</div>
+            <strong>ERROR DE CONEXIÓN</strong><br><br>${e.message}
+          </div>`
+      }
+    })()
+  </script>
+</body>
+</html>
