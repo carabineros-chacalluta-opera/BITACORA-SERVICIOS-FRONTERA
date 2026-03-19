@@ -678,3 +678,170 @@ textarea { resize: vertical; min-height: 80px; }
   width: auto; padding: .25rem .5rem; font-size: .75rem;
   border: 1px solid var(--border); background: var(--bg2);
 }
+/* ============================================================
+   SISCOF v3 — CSS Módulo Geoespacial
+   Agregar al FINAL de css/siscof.css
+   ============================================================ */
+
+/* ── Bloque de ubicación GPS en tarea ── */
+.bloque-geo {
+  background: var(--azul-claro);
+  border: 1px solid #bbd3ff;
+  border-radius: var(--radius-sm);
+  padding: .75rem;
+  margin: .5rem 0;
+}
+.bloque-geo-titulo {
+  font-family: var(--mono);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--azul);
+  margin-bottom: .5rem;
+}
+
+/* ── Tarjeta de punto cercano ── */
+.punto-cercano-card {
+  padding: .5rem .75rem;
+  border-radius: 7px;
+  margin-bottom: .35rem;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  transition: all .15s;
+  background: var(--bg3);
+}
+.punto-cercano-card:hover {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+}
+.punto-cercano-card.seleccionado {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+}
+.punto-cercano-card.fuera-radio {
+  opacity: .6;
+}
+.punto-cercano-nombre {
+  font-size: .78rem;
+  font-weight: 700;
+}
+.punto-cercano-tipo {
+  font-size: .65rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.punto-cercano-dist {
+  font-size: .8rem;
+  font-weight: 700;
+  text-align: right;
+  flex-shrink: 0;
+}
+.punto-cercano-radio {
+  font-size: .6rem;
+  text-align: right;
+}
+
+/* ── Bloque evaluación de criticidad ── */
+.bloque-criticidad {
+  background: var(--verde-claro);
+  border: 1px solid #b8e0c0;
+  border-radius: var(--radius-sm);
+  padding: .75rem;
+  margin: .4rem 0;
+}
+.bloque-criticidad-titulo {
+  font-family: var(--mono);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--verde);
+  margin-bottom: .5rem;
+}
+
+/* ── Botones de estado del punto ── */
+.estado-btn-wrap {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+  margin-bottom: .6rem;
+}
+.estado-btn {
+  padding: .35rem .7rem;
+  border-radius: 6px;
+  border: 1.5px solid;
+  font-size: .7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+}
+.estado-btn.sin_novedad     { border-color: #1a6b2a; color: #1a6b2a; }
+.estado-btn.zona_atencion   { border-color: #9a6e00; color: #9a6e00; }
+.estado-btn.amenaza_activa  { border-color: #d70015; color: #d70015; }
+.estado-btn.descartado      { border-color: #6e6e73; color: #6e6e73; }
+.estado-btn.activo.sin_novedad    { background: #e8f5ea; }
+.estado-btn.activo.zona_atencion  { background: #fffbea; }
+.estado-btn.activo.amenaza_activa { background: #fff0f1; }
+.estado-btn.activo.descartado     { background: #f0f0f2; }
+
+/* ── Resultado de criticidad ── */
+.criticidad-result {
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .3rem .6rem;
+  border-radius: 5px;
+  background: var(--bg3);
+  color: var(--muted);
+  transition: background .2s, color .2s;
+}
+.criticidad-bajo     { background: #e8f5ea; color: #1a6b2a; }
+.criticidad-moderado { background: #fffbea; color: #9a6e00; }
+.criticidad-alto     { background: #fff4ec; color: #c45000; }
+.criticidad-critico  { background: #fff0f1; color: #d70015; }
+.criticidad-emergencia { background: #d70015; color: #fff; }
+
+/* ── Badge GPS ── */
+.badge-gps-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .65rem;
+  font-weight: 700;
+  color: var(--verde);
+  background: var(--verde-claro);
+  border: 1px solid #b8e0c0;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.badge-gps-pendiente {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .65rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* ── Btn GPS ── */
+.btn-gps {
+  background: var(--azul-claro);
+  border: 1px solid #bbd3ff;
+  color: var(--azul);
+  border-radius: 6px;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .4rem .75rem;
+  cursor: pointer;
+  transition: all .15s;
+  width: 100%;
+}
+.btn-gps:hover   { background: var(--azul); color: #fff; }
+.btn-gps.ok      { background: var(--verde-claro); color: var(--verde); border-color: #b8e0c0; }
+.btn-gps:disabled { opacity: .6; cursor: not-allowed; }
